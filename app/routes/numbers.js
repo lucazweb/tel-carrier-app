@@ -6,17 +6,14 @@ module.exports = (app) => {
   });
 
   app.get('/number/:id', (req, res) => {
-    console.log(req.params);
     const { id } = req.params;
     const [query] = data.filter((number) => number.id === parseInt(id));
-    res.json(query);
+
+    if (!query) {
+      res.status(404).send();
+    }
+    res.status(200).json(query);
   });
-
-  // save numbers
-
-  // update numbers
-
-  // delete numbers
 
   return app;
 };
