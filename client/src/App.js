@@ -1,4 +1,5 @@
 import React from 'react';
+import Router from './Router';
 
-const App = () => <pre> App </pre>;
+const App = () => <Router />;
 export default App;
