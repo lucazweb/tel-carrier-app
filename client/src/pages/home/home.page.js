@@ -1,17 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col } from 'react-flexbox-grid';
 import { connect } from 'react-redux';
 import { getNumbers } from '../../store/numbers';
+import { Table } from '../../components';
 
-export const HomePage = ({ getNumbers, data }) => {
+export const HomePage = ({ getNumbers, numbers }) => {
+  const columns = [
+    { title: 'Id' },
+    { title: 'Number' },
+    { title: 'Monthly Price' },
+    { title: 'Setup Price' },
+  ];
+
+  const handleParams = (key, data) => {
+    if (key !== 'currency') {
+      if (key === 'monthyPrice' || key === 'setupPrice') {
+        return `${data.currency} ${data[key]}`;
+      }
+      return data[key];
+    }
+    return;
+  };
+
   useEffect(() => {
     getNumbers();
   }, []);
 
   return (
-    <Row center="xs" style={{ marginTop: 48 }}>
-      <Col xs={10}></Col>
-    </Row>
+    <div className="container-fluid">
+      <div className="row justify-content-center">
+        <div className="col-10">
+          <Table
+            columns={columns}
+            datasource={numbers}
+            handleParams={handleParams}
+          />
+        </div>
+      </div>
+    </div>
   );
 };
 
