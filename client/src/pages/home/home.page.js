@@ -1,93 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import { Table, Radio, Divider } from 'antd';
+import { connect } from 'react-redux';
+import { getNumbers } from '../../store/numbers';
 
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-  },
-];
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-  },
-  {
-    key: '4',
-    name: 'Disabled User',
-    age: 99,
-    address: 'Sidney No. 1 Lake Park',
-  },
-];
-
-// rowSelection object indicates the need for row selection
-const rowSelection = {
-  onChange: (selectedRowKeys, selectedRows) => {
-    console.log(
-      `selectedRowKeys: ${selectedRowKeys}`,
-      'selectedRows: ',
-      selectedRows
-    );
-  },
-  getCheckboxProps: (record) => ({
-    disabled: record.name === 'Disabled User', // Column configuration not to be checked
-    name: record.name,
-  }),
-};
-
-export const Home = () => {
-  const [selectionType, setSelectionType] = useState('checkbox');
+export const HomePage = ({ getNumbers, data }) => {
+  useEffect(() => {
+    getNumbers();
+  }, []);
 
   return (
     <Row center="xs" style={{ marginTop: 48 }}>
-      <Col xs={10}>
-        <div>
-          <Radio.Group
-            onChange={({ target: { value } }) => {
-              setSelectionType(value);
-            }}
-            value={selectionType}
-          >
-            <Radio value="checkbox">Checkbox</Radio>
-            <Radio value="radio">radio</Radio>
-          </Radio.Group>
-
-          <Divider />
-
-          <Table
-            rowSelection={{
-              type: selectionType,
-              ...rowSelection,
-            }}
-            columns={columns}
-            dataSource={data}
-          />
-        </div>
-      </Col>
+      <Col xs={10}></Col>
     </Row>
   );
 };
+
+const mapStateToProps = ({ numbers: { data: numbers } }) => {
+  return {
+    numbers,
+  };
+};
+
+const mapDispatch = {
+  getNumbers,
+};
+
+export const Home = connect(mapStateToProps, mapDispatch)(HomePage);

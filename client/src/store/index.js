@@ -1,8 +1,5 @@
-import { combineReducers, createStore } from 'redux';
-import numbersReducer from './numbers';
+import { createStore, applyMiddleware } from 'redux';
+import reducers from './rootReducer';
+import thunk from 'redux-thunk';
 
-const reducers = combineReducers({
-  numbers: numbersReducer,
-});
-
-export default createStore(reducers);
+export default createStore(reducers, applyMiddleware(thunk));
