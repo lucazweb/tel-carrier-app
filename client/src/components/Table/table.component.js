@@ -13,30 +13,26 @@ export const Table = ({ columns, datasource, handleParams }) => {
   };
 
   return (
-    <div className="row justify-content-center">
-      <div className="col-10">
-        <table className="table">
-          <thead>
-            <tr>
-              {columns &&
-                columns.map((col, index) => (
-                  <th key={index} scope="col">
-                    {col.title}
-                  </th>
-                ))}
-            </tr>
-          </thead>
-          <tbody>
-            {datasource &&
-              datasource.map((item, index) => {
-                const rowData = Object.keys(item).reduce((acc, current) => {
-                  return [...acc, { ['rowData']: handleParams(current, item) }];
-                }, []);
-                return <Row key={index} data={rowData} />;
-              })}
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <table className="table">
+      <thead>
+        <tr>
+          {columns &&
+            columns.map((col, index) => (
+              <th key={index} scope="col">
+                {col.title}
+              </th>
+            ))}
+        </tr>
+      </thead>
+      <tbody>
+        {datasource &&
+          datasource.map((item, index) => {
+            const rowData = Object.keys(item).reduce((acc, current) => {
+              return [...acc, { ['rowData']: handleParams(current, item) }];
+            }, []);
+            return <Row key={index} data={rowData} />;
+          })}
+      </tbody>
+    </table>
   );
 };

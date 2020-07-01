@@ -26,7 +26,17 @@ export const HomePage = ({ getNumbers, numbers }) => {
   }, []);
 
   return (
-    <Table columns={columns} datasource={numbers} handleParams={handleParams} />
+    <div className="container-fluid">
+      <div className="row justify-content-center">
+        <div className="col-10">
+          <Table
+            columns={columns}
+            datasource={numbers}
+            handleParams={handleParams}
+          />
+        </div>
+      </div>
+    </div>
   );
 };
 
