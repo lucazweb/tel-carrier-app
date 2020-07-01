@@ -29,12 +29,18 @@ export const HomePage = ({ getNumbers, loading, numbers }) => {
     <div className="container-fluid">
       <div className="row justify-content-center">
         <div className="col-10">
-          {!loading && numbers.length > 0 ? (
-            <Table
-              columns={columns}
-              datasource={numbers}
-              handleParams={handleParams}
-            />
+          {!loading ? (
+            <>
+              {numbers.length > 0 ? (
+                <Table
+                  columns={columns}
+                  datasource={numbers}
+                  handleParams={handleParams}
+                />
+              ) : (
+                <pre>Sem resultados</pre>
+              )}
+            </>
           ) : (
             <Loading />
           )}
