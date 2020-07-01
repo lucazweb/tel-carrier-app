@@ -1,4 +1,5 @@
 import { api } from '../services/api';
+import { ENABLE_LOADING, DISABLE_LOADING } from './user-interface';
 
 const GET_NUMBERS_REQUEST = 'GET_NUMBERS_REQUEST';
 const GET_NUMBERS_SUCCESS = 'GET_NUMBERS_SUCCESS';
@@ -9,6 +10,10 @@ export const getNumbers = () => async (dispatch) => {
     type: GET_NUMBERS_REQUEST,
   });
 
+  dispatch({
+    type: ENABLE_LOADING,
+  });
+
   try {
     const { data } = await api.get('/numbers');
 
@@ -17,6 +22,10 @@ export const getNumbers = () => async (dispatch) => {
       payload: {
         data,
       },
+    });
+
+    dispatch({
+      type: DISABLE_LOADING,
     });
   } catch (error) {
     dispatch({
