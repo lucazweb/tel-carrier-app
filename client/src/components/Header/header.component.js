@@ -3,6 +3,6 @@ import { HeaderWrapper } from './header.styled';
 
 export const Header = () => (
   <HeaderWrapper>
-    <h1>app</h1>
+    <h1>Telecom Carrier</h1>
   </HeaderWrapper>
 );

@@ -10,4 +10,5 @@ export const HeaderWrapper = styled.div`
   padding: 12px;
   background: white;
   border-bottom: 1px solid #f3f3f3;
+  margin-bottom: 32px;
 `;

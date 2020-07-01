@@ -11,7 +11,6 @@ export const getNumbers = () => async (dispatch) => {
 
   try {
     const { data } = await api.get('/numbers');
-    console.log(data);
 
     dispatch({
       type: GET_NUMBERS_SUCCESS,
