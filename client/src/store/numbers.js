@@ -1,4 +1,5 @@
 import { api } from '../services/api';
+import { ENABLE_LOADING, DISABLE_LOADING } from './user-interface';
 
 const GET_NUMBERS_REQUEST = 'GET_NUMBERS_REQUEST';
 const GET_NUMBERS_SUCCESS = 'GET_NUMBERS_SUCCESS';
@@ -7,6 +8,10 @@ const GET_NUMBERS_FAILURE = 'GET_NUMBERS_FAILURE';
 export const getNumbers = (page = 1, limit = 10) => async (dispatch) => {
   dispatch({
     type: GET_NUMBERS_REQUEST,
+  });
+
+  dispatch({
+    type: ENABLE_LOADING,
   });
 
   try {
@@ -23,6 +28,10 @@ export const getNumbers = (page = 1, limit = 10) => async (dispatch) => {
         data,
         totalPages: headers['x-total-count'],
       },
+    });
+
+    dispatch({
+      type: DISABLE_LOADING,
     });
   } catch (error) {
     dispatch({

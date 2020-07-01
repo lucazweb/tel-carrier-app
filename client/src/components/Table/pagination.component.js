@@ -86,7 +86,6 @@ const PaginationComponent = ({ total, getNumbers }) => {
 };
 
 const mapStateToProps = ({ numbers: { totalPages: total } }) => {
-  console.log(total);
   return {
     total,
   };

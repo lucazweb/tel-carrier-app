@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getNumbers } from '../../store/numbers';
-import { Table } from '../../components';
+import { Table, Loading } from '../../components';
 
-export const HomePage = ({ getNumbers, numbers }) => {
+export const HomePage = ({ getNumbers, loading, numbers }) => {
   const columns = [
     { title: 'Id' },
     { title: 'Number' },
@@ -29,19 +29,30 @@ export const HomePage = ({ getNumbers, numbers }) => {
     <div className="container-fluid">
       <div className="row justify-content-center">
         <div className="col-10">
-          <Table
-            columns={columns}
-            datasource={numbers}
-            handleParams={handleParams}
-          />
+          {!loading ? (
+            <>
+              {numbers.length > 0 ? (
+                <Table
+                  columns={columns}
+                  datasource={numbers}
+                  handleParams={handleParams}
+                />
+              ) : (
+                <pre>Sem resultados</pre>
+              )}
+            </>
+          ) : (
+            <Loading />
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-const mapStateToProps = ({ numbers: { data: numbers } }) => {
+const mapStateToProps = ({ ui: { loading }, numbers: { data: numbers } }) => {
   return {
+    loading,
     numbers,
   };
 };

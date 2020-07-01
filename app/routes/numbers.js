@@ -5,8 +5,13 @@ module.exports = (app) => {
   app.get('/numbers', (req, res) => {
     const { page, limit } = req.query;
     const totalPages = data.length / limit;
-    res.header('X-Total-Count', totalPages);
-    res.json(pagination(data, limit, page));
+
+    // simulates api delay
+
+    setTimeout(() => {
+      res.header('X-Total-Count', totalPages);
+      res.json(pagination(data, limit, page));
+    }, 2000);
   });
 
   app.get('/number/:id', (req, res) => {
@@ -16,8 +21,7 @@ module.exports = (app) => {
     if (!query) {
       res.status(404).send();
     }
-
-    res.status(200).json(query);
+    setTimeout(() => res.status(200).json(query), 2000);
   });
 
   return app;
