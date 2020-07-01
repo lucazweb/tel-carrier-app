@@ -4,7 +4,11 @@ const consign = require('consign');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-app.use(cors());
+app.use(
+  cors({
+    exposedHeaders: ['X-Total-Count'],
+  })
+);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
