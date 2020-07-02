@@ -1,21 +1,34 @@
 import React from 'react';
 import { Pagination } from './pagination.component';
+import { StyledTable, StyledRow } from './table.styled';
 
-export const Table = ({ columns, datasource, handleParams }) => {
-  const Row = ({ data }) => {
+export const Table = ({
+  columns,
+  datasource,
+  handleParams,
+  handleSelect,
+  handleDisabledRow,
+}) => {
+  const handleClick = (data) => {
+    if (handleSelect) {
+      handleSelect(data);
+    }
+  };
+
+  const Row = ({ data, onClick, disabled }) => {
     return (
-      <tr>
+      <StyledRow disabled={disabled} onClick={onClick}>
         {data &&
-          data.map((item, i) => {
-            return item.rowData && <td key={i}>{item.rowData}</td>;
+          data.map(({ rowData }, i) => {
+            return rowData && <td key={i}>{rowData}</td>;
           })}
-      </tr>
+      </StyledRow>
     );
   };
 
   return (
     <>
-      <table className="table">
+      <StyledTable>
         <thead>
           <tr>
             {columns &&
@@ -29,13 +42,24 @@ export const Table = ({ columns, datasource, handleParams }) => {
         <tbody>
           {datasource &&
             datasource.map((item, index) => {
+              const disabled = handleDisabledRow
+                ? handleDisabledRow(item)
+                : false;
+
               const rowData = Object.keys(item).reduce((acc, current) => {
-                return [...acc, { ['rowData']: handleParams(current, item) }];
+                return [...acc, { rowData: handleParams(current, item) }];
               }, []);
-              return <Row key={index} data={rowData} />;
+              return (
+                <Row
+                  key={index}
+                  onClick={() => handleClick(item)}
+                  data={rowData}
+                  disabled={disabled}
+                />
+              );
             })}
         </tbody>
-      </table>
+      </StyledTable>
 
       <Pagination />
     </>
