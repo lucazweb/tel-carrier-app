@@ -1,5 +1,6 @@
 import React from 'react';
 import { Pagination } from './pagination.component';
+import { StyledTable, StyledRow } from './table.styled';
 
 export const Table = ({
   columns,
@@ -16,18 +17,18 @@ export const Table = ({
 
   const Row = ({ data, onClick, disabled }) => {
     return (
-      <tr style={{ color: disabled ? '#4caf50' : '#666' }} onClick={onClick}>
+      <StyledRow disabled={disabled} onClick={onClick}>
         {data &&
           data.map(({ rowData }, i) => {
             return rowData && <td key={i}>{rowData}</td>;
           })}
-      </tr>
+      </StyledRow>
     );
   };
 
   return (
     <>
-      <table className="table">
+      <StyledTable>
         <thead>
           <tr>
             {columns &&
@@ -58,7 +59,7 @@ export const Table = ({
               );
             })}
         </tbody>
-      </table>
+      </StyledTable>
 
       <Pagination />
     </>
