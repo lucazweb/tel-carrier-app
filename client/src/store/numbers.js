@@ -26,6 +26,7 @@ export const getNumbers = (page = 1, limit = 10) => async (dispatch) => {
       type: GET_NUMBERS_SUCCESS,
       payload: {
         data,
+        page,
         totalPages: headers['x-total-count'],
       },
     });
@@ -56,8 +57,8 @@ export default function (state = initialState, action) {
       return state;
 
     case GET_NUMBERS_SUCCESS:
-      const { data, totalPages } = action.payload;
-      return { ...state, data, totalPages };
+      const { data, page, totalPages } = action.payload;
+      return { ...state, data, page, totalPages };
 
     case GET_NUMBERS_FAILURE:
       const { error } = action.payload;
