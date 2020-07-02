@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   StyledPagination,
   PageItem,
+  PageItemNumber,
   PageLink,
   PaginationBtn,
 } from './pagination.styled';
@@ -55,7 +56,7 @@ const PaginationComponent = ({ total, getNumbers, currentPage }) => {
             {total &&
               pages.length > 0 &&
               pages.map((page, i) => (
-                <PageItem
+                <PageItemNumber
                   key={i}
                   className={
                     currentPage === i + 1 ? 'page-item active' : 'page-item'
@@ -67,7 +68,7 @@ const PaginationComponent = ({ total, getNumbers, currentPage }) => {
                   >
                     {page}
                   </PageLink>
-                </PageItem>
+                </PageItemNumber>
               ))}
             <PageItem>
               <PaginationBtn onClick={() => handleNextPage()}>
