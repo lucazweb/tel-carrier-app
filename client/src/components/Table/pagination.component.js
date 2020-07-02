@@ -8,8 +8,7 @@ import {
 import { connect } from 'react-redux';
 import { getNumbers } from '../../store/numbers';
 
-const PaginationComponent = ({ total, getNumbers }) => {
-  const [currentPage, setCurrentPage] = useState(1);
+const PaginationComponent = ({ total, getNumbers, currentPage }) => {
   const [pages, setPages] = useState([]);
 
   const renderPages = () => {
@@ -29,20 +28,17 @@ const PaginationComponent = ({ total, getNumbers }) => {
 
   const handlePageChange = (page) => {
     getNumbers(page);
-    setCurrentPage(page);
   };
 
   const handleNextPage = () => {
     if (currentPage !== pages[pages.length - 1]) {
       getNumbers(currentPage + 1);
-      setCurrentPage((prevPage) => prevPage + 1);
     }
   };
 
   const handlePrevPage = () => {
     if (currentPage !== pages[0]) {
       getNumbers(currentPage - 1);
-      setCurrentPage((prevPage) => prevPage - 1);
     }
   };
 
@@ -85,9 +81,12 @@ const PaginationComponent = ({ total, getNumbers }) => {
   );
 };
 
-const mapStateToProps = ({ numbers: { totalPages: total } }) => {
+const mapStateToProps = ({
+  numbers: { totalPages: total, page: currentPage },
+}) => {
   return {
     total,
+    currentPage,
   };
 };
 const mapDispatch = {
