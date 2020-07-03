@@ -113,9 +113,7 @@ export const HomePage = ({ getNumbers, loading, numbers }) => {
         display={displayEdit}
         title="Purchase number"
         handleClose={handleModalClose}
-        actionTitle={
-          selected && checkAvailability(selected) ? 'Purchase' : 'Not avaiable'
-        }
+        actionTitle="Purchase"
         allowAction={selected ? checkAvailability(selected) : false}
         handleAction={() => handleNumberSale(selected)}
       >
